@@ -3,7 +3,6 @@ package server
 import (
 	"log"
 	"net/http"
-	"os"
 	"time"
 
 	gfbus "github.com/greatfocus/gf-bus"
@@ -11,7 +10,6 @@ import (
 	gfcron "github.com/greatfocus/gf-cron"
 	gfdispatcher "github.com/greatfocus/gf-dispatcher"
 	"github.com/greatfocus/gf-sframe/config"
-	"github.com/greatfocus/gf-sframe/crypt"
 	"github.com/greatfocus/gf-sframe/database"
 )
 
@@ -60,12 +58,6 @@ func (m *Meta) serve() {
 	}
 
 	// create server connection
-	if m.Config.Env == "prod" {
-		srv.TLSConfig = crypt.TLSServerConfig()
-		log.Println("Listening to port secure HTTPS", addr)
-		log.Fatal(srv.ListenAndServeTLS(os.Args[6], os.Args[7]))
-	} else {
-		log.Println("Listening to port HTTP", addr)
-		log.Fatal(srv.ListenAndServe())
-	}
+	log.Println("Listening to port HTTP", addr)
+	log.Fatal(srv.ListenAndServe())
 }

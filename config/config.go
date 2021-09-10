@@ -19,18 +19,27 @@ type Config struct {
 
 // Server struct config
 type Server struct {
-	Port           string   `json:"port"`
-	Timeout        int64    `json:"timeout"`
-	UploadPath     string   `json:"uploadPath"`
-	AllowedOrigins []string `json:"allowedOrigins"`
-	AllowedIPs     []string `json:"allowedIPs"`
-	Secure         Secure   `json:"secure"`
-	JWT            JWT      `json:"jwt"`
-	Workers        int64    `json:"workers"`
+	Port           string     `json:"port"`
+	Timeout        int64      `json:"timeout"`
+	UploadPath     string     `json:"uploadPath"`
+	AllowedOrigins []string   `json:"allowedOrigins"`
+	AllowedIPs     []string   `json:"allowedIPs"`
+	Secure         Secure     `json:"secure"`
+	JWT            JWT        `json:"jwt"`
+	Workers        int64      `json:"workers"`
+	Encryption     Encryption `json:"encryption"`
+}
+
+// encryption struct config
+type Encryption struct {
+	PublicKey  string `json:"publicKey"`
+	PrivateKey string `json:"privateKey"`
 }
 
 // Secure struct config
 type Secure struct {
+	Key      string `json:"key"`
+	Cert     string `json:"cert"`
 	User     string `json:"user"`
 	Password string `json:"password"`
 	SslMode  bool   `json:"sslmode"`

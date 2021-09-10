@@ -8,25 +8,25 @@ import (
 	"log"
 	"net/http"
 	"time"
-
-	"github.com/greatfocus/gf-sframe/crypt"
 )
 
 // Impl struct
 type Impl struct {
-	Vault       string            `json:"vault"`
-	Application string            `json:"application"`
-	Impl        string            `json:"impl"`
-	Env         string            `json:"env"`
-	Scripts     map[string]string `json:"scripts"`
+	VaultURL  string            `json:"vaultUrl"`
+	VaultUser string            `json:"vaultUser"`
+	VaultPass string            `json:"vaultPass"`
+	Service   string            `json:"service"`
+	Env       string            `json:"env"`
+	Scripts   map[string]string `json:"scripts"`
 }
 
 // GetConfig method gets configf from impl
 func (i *Impl) GetConfig() Config {
 	request := Impl{
-		Application: i.Application,
-		Impl:        i.Impl,
-		Env:         i.Env,
+		Env:       i.Env,
+		Service:   i.Service,
+		VaultUser: i.VaultUser,
+		VaultPass: i.VaultPass,
 	}
 	reqBody, err := json.Marshal(request)
 	if err != nil {
@@ -36,15 +36,17 @@ func (i *Impl) GetConfig() Config {
 		log.Fatal(fmt.Println("Failed to get Impl config", err))
 	}
 
+	t := http.DefaultTransport.(*http.Transport).Clone()
+	t.MaxIdleConns = 100
+	t.MaxConnsPerHost = 100
+	t.MaxIdleConnsPerHost = 100
 	client := http.Client{
-		Timeout: time.Minute * 3,
-		Transport: &http.Transport{
-			TLSClientConfig: crypt.TLSClientConfig(),
-		},
+		Timeout:   10 * time.Second,
+		Transport: t,
 	}
 
 	// make API call to impl
-	resp, err := client.Post(i.Vault, "application/json", bytes.NewReader(reqBody))
+	resp, err := client.Post(i.VaultURL, "application/json", bytes.NewReader(reqBody))
 	if err != nil {
 		log.Fatal(fmt.Println("Failed to get Impl config"))
 	}

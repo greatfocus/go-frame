@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 	"strconv"
 	"time"
 
@@ -43,8 +42,8 @@ func (d *db) connect(dbConfig config.DatabaseType, impl *config.Impl) {
 	user := dbConfig.User
 	password := dbConfig.Password
 	sslmode := "disable"
-	cert := os.Args[8]
-	key := os.Args[9]
+	cert := dbConfig.Secure.Cert
+	key := dbConfig.Secure.Key
 	if dbConfig.Secure.SslMode {
 		sslmode = "require"
 	}

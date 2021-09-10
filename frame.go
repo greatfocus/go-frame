@@ -1,7 +1,9 @@
 package frame
 
 import (
+	"log"
 	"net/http"
+	"os"
 	"time"
 
 	gfcache "github.com/greatfocus/gf-cache"
@@ -11,6 +13,7 @@ import (
 	"github.com/greatfocus/gf-sframe/database"
 	"github.com/greatfocus/gf-sframe/server"
 	gfvalidator "github.com/greatfocus/gf-validator"
+	"github.com/joho/godotenv"
 )
 
 // Frame struct
@@ -20,9 +23,28 @@ type Frame struct {
 }
 
 // NewFrame get new instance of frame
-func NewFrame(impl *config.Impl) *Frame {
+func NewFrame(scripts map[string]string) *Frame {
+	// Load environment variables
+	if err := godotenv.Load(".env"); err != nil {
+		log.Fatal(err)
+	}
+	env, _ := os.LookupEnv("ENV")
+	service, _ := os.LookupEnv("SERVICE")
+	valtUrl, _ := os.LookupEnv("VALT_URL")
+	valtUser, _ := os.LookupEnv("VALT_USER")
+	valtPass, _ := os.LookupEnv("VALT_PASS")
+
+	// prepare impl config
+	impl := config.Impl{
+		VaultURL:  valtUrl,
+		VaultUser: valtUser,
+		VaultPass: valtPass,
+		Service:   service,
+		Env:       env,
+		Scripts:   scripts,
+	}
 	var f = &Frame{env: impl.Env}
-	f.Server = f.init(impl)
+	f.Server = f.init(&impl)
 	return f
 }
 

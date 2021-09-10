@@ -1,9 +1,14 @@
 package server
 
 import (
+	"context"
 	"errors"
 	"net/http"
 )
+
+type ContextKey string
+
+const ContextPublicKey ContextKey = "publicKey"
 
 // Order of the Middleware
 // 1. set headers
@@ -123,12 +128,13 @@ func CheckAuth(meta *Meta) Middleware {
 			// validate jwt
 			err := meta.JWT.TokenValid(r)
 			if err != nil {
-				Error(w, http.StatusUnauthorized, errors.New("Unauthorized"))
+				Error(w, http.StatusUnauthorized, errors.New("Unauthorized"), meta.Config.Server.Encryption.PublicKey)
 				return
 			}
 
 			// continue
-			h.ServeHTTP(w, r)
+			ctx := context.WithValue(r.Context(), ContextPublicKey, meta.Config.Server.Encryption.PublicKey)
+			h.ServeHTTP(w, r.WithContext(ctx))
 		})
 	}
 }
@@ -151,7 +157,7 @@ func CheckPermission(meta *Meta) Middleware {
 			var pattern = r.URL.Path
 			token, err := meta.JWT.GetToken(r)
 			if err != nil {
-				Error(w, http.StatusUnauthorized, errors.New("Unauthorized"))
+				Error(w, http.StatusUnauthorized, errors.New("Unauthorized"), meta.Config.Server.Encryption.PublicKey)
 				return
 			}
 
@@ -162,7 +168,7 @@ func CheckPermission(meta *Meta) Middleware {
 			}
 
 			if allowed {
-				Error(w, http.StatusUnauthorized, errors.New("Unauthorized"))
+				Error(w, http.StatusUnauthorized, errors.New("Unauthorized"), meta.Config.Server.Encryption.PublicKey)
 				return
 			}
 
