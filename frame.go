@@ -30,13 +30,13 @@ func NewFrame(scripts map[string]string) *Frame {
 	}
 	env, _ := os.LookupEnv("ENV")
 	service, _ := os.LookupEnv("SERVICE")
-	valtUrl, _ := os.LookupEnv("VALT_URL")
+	valtURL, _ := os.LookupEnv("VALT_URL")
 	valtUser, _ := os.LookupEnv("VALT_USER")
 	valtPass, _ := os.LookupEnv("VALT_PASS")
 
 	// prepare impl config
 	impl := config.Impl{
-		VaultURL:  valtUrl,
+		VaultURL:  valtURL,
 		VaultUser: valtUser,
 		VaultPass: valtPass,
 		Service:   service,

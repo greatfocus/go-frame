@@ -6,16 +6,10 @@ import (
 	"crypto/sha512"
 	"crypto/x509"
 	"encoding/pem"
-	"io/ioutil"
 )
 
-func Encrypt(publicKeyPath, plainText string) (string, error) {
-	bytes, err := ioutil.ReadFile(publicKeyPath)
-	if err != nil {
-		return "", err
-	}
-
-	publicKey, err := convertBytesToPublicKey(bytes)
+func Encrypt(key, plainText string) (string, error) {
+	publicKey, err := convertBytesToPublicKey([]byte(key))
 	if err != nil {
 		return "", err
 	}

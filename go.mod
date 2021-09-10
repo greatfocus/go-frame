@@ -1,6 +1,6 @@
 module github.com/greatfocus/gf-sframe
 
-go 1.14
+go 1.16
 
 require (
 	github.com/greatfocus/gf-bus v0.0.1-beta.1
