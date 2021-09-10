@@ -6,16 +6,10 @@ import (
 	"crypto/sha512"
 	"crypto/x509"
 	"encoding/pem"
-	"io/ioutil"
 )
 
-func Decrypt(privateKeyPath, encryptedMessage string) (string, error) {
-	bytes, err := ioutil.ReadFile(privateKeyPath)
-	if err != nil {
-		return "", err
-	}
-
-	privateKey, err := convertBytesToPrivateKey(bytes)
+func Decrypt(key, encryptedMessage string) (string, error) {
+	privateKey, err := convertBytesToPrivateKey([]byte(key))
 	if err != nil {
 		return "", err
 	}
