@@ -3,30 +3,30 @@ package server
 import (
 	"encoding/json"
 	"net/http"
-
-	"github.com/greatfocus/gf-sframe/crypt/pki"
 )
 
-// Response data
-type Response struct {
-	Payload string `json:"data,omitempty"`
-}
-
-// Success returns response as json
-func Success(w http.ResponseWriter, statusCode int, data interface{}, publicKey string) {
-	payload, _ := pki.Encrypt(publicKey, data.(string))
-	res := Response{Payload: payload}
+// response returns payload
+func response(w http.ResponseWriter, statusCode int, data interface{}) {
 	w.WriteHeader(statusCode)
-	_ = json.NewEncoder(w).Encode(res)
+	_ = json.NewEncoder(w).Encode(data)
 }
 
 // Error returns error as json
-func Error(w http.ResponseWriter, statusCode int, err error, publicKey string) {
-	if err != nil {
-		Success(w, statusCode, struct {
-			Error string `json:"error"`
-		}{Error: err.Error()}, publicKey)
+func Success(w http.ResponseWriter, statusCode int, data interface{}) {
+	if data != nil {
+		response(w, statusCode, data)
 		return
 	}
-	Success(w, http.StatusBadRequest, nil, publicKey)
+	response(w, http.StatusBadRequest, nil)
+}
+
+// Error returns error as json
+func Error(w http.ResponseWriter, statusCode int, err error) {
+	if err != nil {
+		response(w, statusCode, struct {
+			Error string `json:"error"`
+		}{Error: err.Error()})
+		return
+	}
+	response(w, http.StatusBadRequest, nil)
 }

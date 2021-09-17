@@ -28,11 +28,11 @@ func NewFrame(scripts map[string]string) *Frame {
 	if err := godotenv.Load(".env"); err != nil {
 		log.Fatal(err)
 	}
-	env, _ := os.LookupEnv("ENV")
-	service, _ := os.LookupEnv("SERVICE")
-	valtURL, _ := os.LookupEnv("VALT_URL")
-	valtUser, _ := os.LookupEnv("VALT_USER")
-	valtPass, _ := os.LookupEnv("VALT_PASS")
+	env := os.Getenv("ENV")
+	service := os.Getenv("SERVICE")
+	valtURL := os.Getenv("VALT_URL")
+	valtUser := os.Getenv("VALT_USER")
+	valtPass := os.Getenv("VALT_PASS")
 
 	// prepare impl config
 	impl := config.Impl{
