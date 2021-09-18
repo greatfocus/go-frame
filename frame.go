@@ -4,9 +4,7 @@ import (
 	"log"
 	"net/http"
 	"os"
-	"time"
 
-	gfcache "github.com/greatfocus/gf-cache"
 	gfcron "github.com/greatfocus/gf-cron"
 	gfdispatcher "github.com/greatfocus/gf-dispatcher"
 	"github.com/greatfocus/gf-sframe/config"
@@ -57,11 +55,11 @@ func (f *Frame) init(impl *config.Impl) *server.Meta {
 	// initCron creates instance of cron
 	cron := f.initCron()
 
-	// initCache creates instance of cache
-	cache := f.initCache(config.Cache.DefaultExpiration, config.Cache.CleanupInterval)
-
 	// initDB create database connection
-	db := f.initDB(config, impl)
+	var db *database.Conn
+	if len(impl.Scripts) > 0 {
+		db = f.initDB(config, impl)
+	}
 
 	// initCron creates instance of cron
 	jwt := f.initJWT(config)
@@ -75,7 +73,6 @@ func (f *Frame) init(impl *config.Impl) *server.Meta {
 		Env:        impl.Env,
 		Config:     config,
 		Cron:       cron,
-		Cache:      cache,
 		DB:         db,
 		JWT:        jwt,
 		Dispatcher: dispatcher,
@@ -97,13 +94,6 @@ func (f *Frame) initConfig(impl *config.Impl) *config.Config {
 // initCron creates instance of cron
 func (f *Frame) initCron() *gfcron.Cron {
 	return gfcron.New()
-}
-
-// initCache creates instance of cache
-func (f *Frame) initCache(defaultExpiration, cleanupInterval int64) *gfcache.Cache {
-	// Create a cache with a default expiration time of 5 minutes, and which
-	// purges expired items every 10 minutes
-	return gfcache.New(time.Duration(defaultExpiration), time.Duration(cleanupInterval))
 }
 
 // initDB read the configuration file

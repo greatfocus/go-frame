@@ -6,7 +6,6 @@ import (
 	"time"
 
 	gfbus "github.com/greatfocus/gf-bus"
-	gfcache "github.com/greatfocus/gf-cache"
 	gfcron "github.com/greatfocus/gf-cron"
 	gfdispatcher "github.com/greatfocus/gf-dispatcher"
 	"github.com/greatfocus/gf-sframe/config"
@@ -22,7 +21,6 @@ type Meta struct {
 	Mux        *http.ServeMux
 	Config     *config.Config
 	DB         *database.Conn
-	Cache      *gfcache.Cache
 	Cron       *gfcron.Cron
 	JWT        *JWT
 	Dispatcher *gfdispatcher.Disp
