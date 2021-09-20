@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"time"
 
-	gfbus "github.com/greatfocus/gf-bus"
 	gfcron "github.com/greatfocus/gf-cron"
 	"github.com/greatfocus/gf-sframe/config"
 	"github.com/greatfocus/gf-sframe/database"
@@ -22,7 +21,6 @@ type Meta struct {
 	DB     *database.Conn
 	Cron   *gfcron.Cron
 	JWT    *JWT
-	Bus    *gfbus.Bus
 }
 
 // Start the server

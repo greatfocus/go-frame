@@ -1,5 +1,3 @@
-github.com/greatfocus/gf-bus v0.0.1-beta.2 h1:CREMYV+wKNHaLoLRcl3VkKbMROs7OouHd084ePTiOxc=
-github.com/greatfocus/gf-bus v0.0.1-beta.2/go.mod h1:7QqAq8GFGTROLV4aJCVB2DCSf2l95yvQpf2QvvL4oJU=
 github.com/greatfocus/gf-cron v0.0.1-beta.4 h1:oR7Af0q7nH4ed8KjA+PXIz/AGKfgsX0Wz7tjrG2Dmjw=
 github.com/greatfocus/gf-cron v0.0.1-beta.4/go.mod h1:JHVrZ+l5wChkzdtMfXcyWT/6OOgIrViZwMujL8FA0CA=
 github.com/greatfocus/gf-jwt v0.0.1-beta.2 h1:ceVfTRLDUXYHHRB/0g56rOaNzGf1cCfFDFPiobeAjTc=
