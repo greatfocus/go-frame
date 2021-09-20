@@ -7,7 +7,6 @@ import (
 
 	gfbus "github.com/greatfocus/gf-bus"
 	gfcron "github.com/greatfocus/gf-cron"
-	gfdispatcher "github.com/greatfocus/gf-dispatcher"
 	"github.com/greatfocus/gf-sframe/config"
 	"github.com/greatfocus/gf-sframe/database"
 )
@@ -17,14 +16,13 @@ type HandlerFunc func(http.ResponseWriter, *http.Request)
 
 // Meta struct
 type Meta struct {
-	Env        string
-	Mux        *http.ServeMux
-	Config     *config.Config
-	DB         *database.Conn
-	Cron       *gfcron.Cron
-	JWT        *JWT
-	Dispatcher *gfdispatcher.Disp
-	Bus        *gfbus.Bus
+	Env    string
+	Mux    *http.ServeMux
+	Config *config.Config
+	DB     *database.Conn
+	Cron   *gfcron.Cron
+	JWT    *JWT
+	Bus    *gfbus.Bus
 }
 
 // Start the server

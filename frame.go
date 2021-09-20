@@ -6,11 +6,9 @@ import (
 	"os"
 
 	gfcron "github.com/greatfocus/gf-cron"
-	gfdispatcher "github.com/greatfocus/gf-dispatcher"
 	"github.com/greatfocus/gf-sframe/config"
 	"github.com/greatfocus/gf-sframe/database"
 	"github.com/greatfocus/gf-sframe/server"
-	gfvalidator "github.com/greatfocus/gf-validator"
 	"github.com/joho/godotenv"
 )
 
@@ -64,18 +62,12 @@ func (f *Frame) init(impl *config.Impl) *server.Meta {
 	// initCron creates instance of cron
 	jwt := f.initJWT(config)
 
-	dispatcher := f.initDispatcher(config)
-
-	// Initiate validator
-	gfvalidator.SetFieldsRequiredByDefault(true)
-
 	return &server.Meta{
-		Env:        impl.Env,
-		Config:     config,
-		Cron:       cron,
-		DB:         db,
-		JWT:        jwt,
-		Dispatcher: dispatcher,
+		Env:    impl.Env,
+		Config: config,
+		Cron:   cron,
+		DB:     db,
+		JWT:    jwt,
 	}
 }
 
@@ -109,10 +101,4 @@ func (f *Frame) initJWT(config *config.Config) *server.JWT {
 	var jwt = server.JWT{}
 	jwt.Init(config)
 	return &jwt
-}
-
-// initDispatcher creates instance of dispatcher
-func (f *Frame) initDispatcher(config *config.Config) *gfdispatcher.Disp {
-	d := gfdispatcher.NewDispatcher(int(config.Server.Workers)).Start()
-	return d
 }

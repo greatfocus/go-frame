@@ -2,12 +2,8 @@ github.com/greatfocus/gf-bus v0.0.1-beta.2 h1:CREMYV+wKNHaLoLRcl3VkKbMROs7OouHd0
 github.com/greatfocus/gf-bus v0.0.1-beta.2/go.mod h1:7QqAq8GFGTROLV4aJCVB2DCSf2l95yvQpf2QvvL4oJU=
 github.com/greatfocus/gf-cron v0.0.1-beta.4 h1:oR7Af0q7nH4ed8KjA+PXIz/AGKfgsX0Wz7tjrG2Dmjw=
 github.com/greatfocus/gf-cron v0.0.1-beta.4/go.mod h1:JHVrZ+l5wChkzdtMfXcyWT/6OOgIrViZwMujL8FA0CA=
-github.com/greatfocus/gf-dispatcher v0.0.1-beta.3 h1:t9aUpNtDpSMCOrKcKYZeJyY5orO0uSXKDsxNqmF9HKc=
-github.com/greatfocus/gf-dispatcher v0.0.1-beta.3/go.mod h1:xXzBkEgKulpZUTWXzEvZTupJSZUwL2FfUXphSbhK59c=
 github.com/greatfocus/gf-jwt v0.0.1-beta.2 h1:ceVfTRLDUXYHHRB/0g56rOaNzGf1cCfFDFPiobeAjTc=
 github.com/greatfocus/gf-jwt v0.0.1-beta.2/go.mod h1:TOfDUN3wg6ymMPJ/tCin+a2WOLh9D6JPlZXyDLgwCpc=
-github.com/greatfocus/gf-validator v0.0.1-beta.2 h1:BfFu0ZnXqrVDWWicNr0dr71tHUyJMreGjDMvz7n6F5A=
-github.com/greatfocus/gf-validator v0.0.1-beta.2/go.mod h1:QRk97qRMGR5bwhPdw2ymzishxxvISXna2xGj3O8FVj4=
 github.com/joho/godotenv v1.3.0 h1:Zjp+RcGpHhGlrMbJzXTrZZPrWj+1vfm90La1wgB6Bhc=
 github.com/joho/godotenv v1.3.0/go.mod h1:7hK45KPybAkOC6peb+G5yklZfMxEjkZhHbwpqxOKXbg=
 golang.org/x/crypto v0.0.0-20210513164829-c07d793c2f9a h1:kr2P4QFmQr29mSLA43kwrOcgcReGTfbE9N577tCTuBc=
