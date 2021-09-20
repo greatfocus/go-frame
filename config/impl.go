@@ -12,12 +12,11 @@ import (
 
 // Impl struct
 type Impl struct {
-	VaultURL  string            `json:"-"`
-	VaultUser string            `json:"vaultUser"`
-	VaultPass string            `json:"vaultPass"`
-	Service   string            `json:"service"`
-	Env       string            `json:"env"`
-	Scripts   map[string]string `json:"-"`
+	VaultURL  string `json:"-"`
+	VaultUser string `json:"vaultUser"`
+	VaultPass string `json:"vaultPass"`
+	Service   string `json:"service"`
+	Env       string `json:"env"`
 }
 
 // GetConfig method gets configf from impl

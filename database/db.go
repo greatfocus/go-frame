@@ -4,7 +4,9 @@ import (
 	"context"
 	"database/sql"
 	"fmt"
+	"io/ioutil"
 	"log"
+	"os"
 	"strconv"
 	"time"
 
@@ -70,20 +72,30 @@ func (d *db) connect(dbConfig config.DatabaseType, impl *config.Impl) {
 
 	// execute database scripts
 	if dbConfig.ExecuteSchema {
-		d.executeSchema(conn, impl.Scripts)
+		d.executeSchema(conn)
 		d.RebuildIndexes(conn, dbConfig.Database)
 	}
 	d.conn = conn
 }
 
 // ExecuteSchema prepare and execute database changes
-func (d *db) executeSchema(db *sql.DB, scripts map[string]string) {
+func (d *db) executeSchema(db *sql.DB) {
 	// read the scripts in the folder
+	var path = os.Getenv("DATABASE_PATH") + "/"
 	log.Println("Preparing to execute database schema")
+	files, err := ioutil.ReadDir(path)
+	if err != nil {
+		log.Fatal(fmt.Println(err))
+	}
+
 	// loop thru files to create schemas
-	for key, script := range scripts {
-		sql := string(script)
-		log.Println("Executing schema: ", key)
+	for _, f := range files {
+		c, ioErr := ioutil.ReadFile(path + f.Name())
+		if ioErr != nil {
+			log.Fatal(fmt.Println(err))
+		}
+		sql := string(c)
+		log.Println("Executing schema: ", path+f.Name())
 		if _, err := db.Exec(sql); err != nil {
 			log.Fatal(fmt.Println(err))
 		}

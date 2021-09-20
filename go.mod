@@ -3,6 +3,7 @@ module github.com/greatfocus/gf-sframe
 go 1.16
 
 require (
+	github.com/greatfocus/gf-cache v0.0.2-beta.1
 	github.com/greatfocus/gf-cron v0.0.1-beta.4
 	github.com/greatfocus/gf-jwt v0.0.1-beta.2
 	github.com/joho/godotenv v1.3.0
