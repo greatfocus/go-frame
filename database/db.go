@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"path/filepath"
 	"strconv"
 	"time"
 
@@ -82,6 +83,7 @@ func (d *db) connect(dbConfig config.DatabaseType, impl *config.Impl) {
 func (d *db) executeSchema(db *sql.DB) {
 	// read the scripts in the folder
 	var path = os.Getenv("DATABASE_PATH") + "/"
+	path = filepath.Clean(path)
 	log.Println("Preparing to execute database schema")
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
