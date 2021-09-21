@@ -92,7 +92,8 @@ func (d *db) executeSchema(db *sql.DB) {
 
 	// loop thru files to create schemas
 	for _, f := range files {
-		c, ioErr := ioutil.ReadFile(path + f.Name())
+		filepath := filepath.Clean(path + f.Name())
+		c, ioErr := ioutil.ReadFile(filepath)
 		if ioErr != nil {
 			log.Fatal(fmt.Println(err))
 		}
