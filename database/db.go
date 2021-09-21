@@ -9,6 +9,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/greatfocus/gf-sframe/config"
@@ -93,6 +94,9 @@ func (d *db) executeSchema(db *sql.DB) {
 	// loop thru files to create schemas
 	for _, f := range files {
 		filepath := filepath.Clean(path + f.Name())
+		if !strings.HasPrefix(filepath, path) {
+			log.Fatal(fmt.Println(err))
+		}
 		c, ioErr := ioutil.ReadFile(filepath)
 		if ioErr != nil {
 			log.Fatal(fmt.Println(err))
