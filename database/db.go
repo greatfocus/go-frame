@@ -92,7 +92,7 @@ func (d *db) executeSchema(db *sql.DB) {
 
 	// loop thru files to create schemas
 	for _, f := range files {
-		filepath := filepath.Clean(path + f.Name())
+		filepath := filepath.Clean(path + "/" + f.Name())
 		scriptFile, err := os.OpenFile(filepath, os.O_RDONLY, 0600)
 		if err != nil {
 			log.Fatal(fmt.Println(err))
